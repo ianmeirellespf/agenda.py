@@ -1,0 +1,101 @@
+#programa de hoje
+
+'''
+O exercício de hoje é 
+Escrever um programa que faça uma agenda básica 
+com as seguintes funções 
+Inserir na agenda
+remover da agenda
+editar agenda 
+Contar elementos da agenda
+Interface modo texto
+'''
+
+# Isso é um dicionário
+agenda = {}
+
+#def -> definição de função
+
+def insere():
+    nome = input("coloque o nome no registro\n")
+    numero =input("digite o numero do telefone\n")
+    aniversario=input("digite a data de aniversario\n")
+    endereço =input("digite o endereço da pessoa\n")
+    dados=("nome: {}, numero:{} aniversario:{} endereço:{}\n".format(nome,numero,aniversario,endereço))
+    arquivo = open("agenda.txt", "a")
+    arquivo.writelines(dados)
+    arquivo.close()
+    
+def ler():
+    with open("agenda.txt", "r") as texto:
+        leitura = texto.readlines()
+        print(leitura)
+        
+
+def remove():
+    file= open("agenda.txt", "r") 
+    lixo=input("qual nome voce deseja deletar?")
+    linhas=file.readlines()
+    valor=0
+    file.close()
+    for linha in linhas :
+        if lixo in linha:
+            passo=input("digite apagar para excluir o nome {}".format(linha))
+            if passo=="apagar":
+                linhas.pop(valor)
+                print("o nome foi apagado")
+        valor = valor+1
+    str=""
+    for item in linhas :
+        str+=item
+
+    arquivo=open("agenda.txt", "w")
+    arquivo.write(str)
+    arquivo.close()
+def edita():
+    arquivo= open("agenda.txt", "r") 
+    troca=input("qual nome voce deseja editar?")
+    linhas=arquivo.readlines()
+    valor=0
+    arquivo.close()
+    for linha in linhas :
+        if troca in linha:
+            passo=input("digite trocar para editar o nome {}".format(linha))
+            if passo=="trocar":
+                linhas.pop(valor)
+                
+        valor = valor+1
+    print("como ficaria o nome corretamente?")
+    nome = input("coloque o nome no registro\n")
+    numero =input("digite o numero do telefone\n")
+    aniversario=input("digite a data de aniversario\n")
+    endereço =input("digite o endereço da pessoa\n")
+    str=("nome: {}, numero:{} aniversario:{} endereço:{}\n".format(nome,numero,aniversario,endereço))
+    for item in linhas :
+        str+=item
+
+    arquivo=open("agenda.txt", "w")
+    arquivo.write(str)
+    arquivo.close()
+
+
+
+# Loop da agenda 
+#aqui vcs vão coletar elementos da agenda e os comandos que eu quero fazer
+
+comando = ""
+
+while (comando != "FIM\n"):
+    print("Bem vindo à agenda de LP\n")
+    comando = input("Digitie o comando que vc deseja: Inserir, Remover, Editar, ler ou Contar\n")
+    if comando == "Inserir":
+        insere()
+    elif comando == "Remover":
+        remove()
+    elif comando == "Editar":
+        edita()
+    
+    elif comando == "ler":
+        ler()
+    else:
+        comando = "FIM"
